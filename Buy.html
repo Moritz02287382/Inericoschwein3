@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einfacher Online-Shop</title>
+    <style>
+        .product {
+            margin: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 200px;
+            display: inline-block;
+            text-align: center;
+        }
+        .cart {
+            margin-top: 20px;
+            border: 1px solid #333;
+            padding: 10px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Produkte</h1>
+
+<div class="product">
+    <h2>Produkt 1</h2>
+    <p>Preis: 10€</p>
+    <button onclick="addToCart('Produkt 1', 10)">In den Warenkorb</button>
+</div>
+
+<div class="product">
+    <h2>Produkt 2</h2>
+    <p>Preis: 15€</p>
+    <button onclick="addToCart('Produkt 2', 15)">In den Warenkorb</button>
+</div>
+
+<div class="cart">
+    <h2>Warenkorb</h2>
+    <div id="cartItems"></div>
+    <p id="totalPrice">Gesamt: 0€</p>
+    <button onclick="checkout()">Bestellen</button>
+</div>
+
+<script>
+    let cart = [];
+    let totalPrice = 0;
+
+    function addToCart(product, price) {
+        cart.push({ product, price });
+        totalPrice += price;
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItemsDiv = document.getElementById('cartItems');
+        cartItemsDiv.innerHTML = '';
+        cart.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.textContent = `${item.product} - ${item.price}€`;
+            cartItemsDiv.appendChild(itemDiv);
+        });
+        document.getElementById('totalPrice').textContent = `Gesamt: ${totalPrice}€`;
+    }
+
+    function checkout() {
+        alert('Vielen Dank für Ihre Bestellung! Gesamtbetrag: ' + totalPrice + '€');
+        cart = [];
+        totalPrice = 0;
+        updateCart();
+    }
+</script>
+
+</body>
+</html>
